@@ -2,20 +2,28 @@
     "config": {
         "main_stack_size":     { "value": 4096 }
     },
+
+    "requires": ["bare-metal", "lora", "sx1272-lora-driver", "spif-driver"],
     "target_overrides": {
         "*": {
+            "target.c_lib": "small",
             "platform.stdio-convert-newlines": true,
             "platform.stdio-baud-rate": 115200,
             "platform.default-serial-baud-rate": 115200,
+            "target.printf_lib": "minimal-printf",
+            "platform.minimal-printf-enable-floating-point": true,
+            "platform.minimal-printf-set-floating-point-max-decimals": 6,
+            "platform.minimal-printf-enable-64-bit": false,
             "mbed-trace.enable": false,
             "mbed-trace.max-level": "TRACE_LEVEL_DEBUG",
             "lora.over-the-air-activation": true,
             "lora.duty-cycle-on": true,
             "lora.phy": "EU868",
-            "lora.device-eui": "{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }",
-            "lora.application-eui": "{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }",
-            "lora.application-key": "{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }"
+            "lora.device-eui": "{ 0x70, 0xe0, 0x4d, 0xe6, 0x90, 0x84, 0xf7, 0x24 }",
+            "lora.application-eui": "{ 0x10, 0xCE, 0x45, 0xFF, 0xFE, 0x00, 0x8C, 0x7E }",
+            "lora.application-key": "{ 0x3b, 0x14, 0xce, 0x6a, 0x13, 0xd4, 0xe0, 0x95, 0x81, 0x65, 0x1f, 0x90, 0x70, 0x66, 0x67, 0xbe }"
         },
+        
 
         "K64F": {
             "target.components_add":            ["SX1276"],
@@ -117,6 +125,21 @@
             "sx1272-lora-driver.dio4":            "LORA_DIO4"
         },
 
+        "ZEST_CORE_FMLR-72": {
+            "target.components_add":             ["SX1272"],
+            "sx1272-lora-driver.spi-mosi":        "LORA_MOSI",
+            "sx1272-lora-driver.spi-miso":        "LORA_MISO",
+            "sx1272-lora-driver.spi-sclk":        "LORA_SCK",
+            "sx1272-lora-driver.spi-cs":          "LORA_CS",
+            "sx1272-lora-driver.reset":           "LORA_RESET",
+            "sx1272-lora-driver.dio0":            "LORA_DIO0",
+            "sx1272-lora-driver.dio1":            "LORA_DIO1",
+            "sx1272-lora-driver.dio2":            "LORA_DIO2",
+            "sx1272-lora-driver.dio3":            "LORA_DIO3",
+            "sx1272-lora-driver.dio4":            "LORA_DIO4",
+            "sx1272-lora-driver.dio5":            "LORA_DIO5"
+        },
+
         "MTS_MDOT_F411RE": {
             "target.components_add":             ["SX1272"],
             "sx1272-lora-driver.spi-mosi":        "LORA_MOSI",
@@ -133,6 +156,7 @@
             "sx1272-lora-driver.txctl":           "LORA_TXCTL",
             "sx1272-lora-driver.rxctl":           "LORA_RXCTL"
         },
+
 
         "MTB_ADV_WISE_1510": {
             "target.components_add":             ["SX1276"],
